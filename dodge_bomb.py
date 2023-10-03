@@ -22,7 +22,7 @@ def check_bound(obj_rct: pg.Rect):
     if obj_rct.top < 0  or HEIGHT < obj_rct.bottom:
         tate = False
 
-    return yoko,tate
+    return yoko, tate
 
     
 
@@ -55,7 +55,7 @@ def main():
             '(5,-5)':pg.transform.rotozoom(kk_img2,45,1.0),
             '(5,0)':pg.transform.rotozoom(kk_img2,0,1.0),
             '(5,5)':pg.transform.rotozoom(kk_img2,-45,1.0),
-            '(0,5)':pg.transform.rotozoom(kk_img2,-90,1.0),
+            '(0,5)':pg.transform.rotozoom(kk_img2,-90,.0),
             }
 
     while True:
@@ -78,18 +78,18 @@ def main():
                 sum_mv[0] += mv[0]
                 sum_mv[1] += mv[1]
        
-        kk_rct.move_ip(sum_mv[0],sum_mv[1])
+        kk_rct.move_ip(sum_mv[0], sum_mv[1])
         if check_bound(kk_rct) != (True, True):
-            kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
-        screen.blit(muki['(0,-5)'],kk_rct)
+            kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
+        screen.blit(muki['(0,-5)'], kk_rct)
 
         bd_rct.move_ip(vx, vy)
         yoko,tate = check_bound(bd_rct)
         if not yoko:
-            vx *=-1
+            vx *= -1
         if not tate:
-            vy *=-1
-        screen.blit(bd_img,bd_rct)
+            vy *=- 1
+        screen.blit(bd_img, bd_rct)
 
         pg.display.update()
         tmr += 1
