@@ -23,6 +23,7 @@ def check_bound(obj_rct: pg.Rect):
         tate = False
 
     return yoko,tate
+
     
 
 def main():
@@ -32,6 +33,8 @@ def main():
 
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kk_img2 = pg.transform.flip(kk_img,True,False)
+
     kk_rct = kk_img.get_rect()
     kk_rct.center = (900,400)
 
@@ -45,6 +48,16 @@ def main():
 
     clock = pg.time.Clock()
     tmr = 0
+    muki = {
+            '(-5,0)':pg.transform.rotozoom(kk_img,0,1.0),
+            '(-5,-5)':pg.transform.rotozoom(kk_img,45,1.0),
+           '(0,-5)':pg.transform.rotozoom(kk_img2,90,1.0),
+            '(5,-5)':pg.transform.rotozoom(kk_img2,45,1.0),
+            '(5,0)':pg.transform.rotozoom(kk_img2,0,1.0),
+            '(5,5)':pg.transform.rotozoom(kk_img2,-45,1.0),
+            '(0,5)':pg.transform.rotozoom(kk_img2,-90,1.0),
+            }
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -59,14 +72,16 @@ def main():
 
         key_lst = pg.key.get_pressed()
         sum_mv = [0,0]
+        
         for key, mv in delta.items():
             if key_lst[key]:
                 sum_mv[0] += mv[0]
                 sum_mv[1] += mv[1]
+       
         kk_rct.move_ip(sum_mv[0],sum_mv[1])
         if check_bound(kk_rct) != (True, True):
             kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
-        screen.blit(kk_img,kk_rct)
+        screen.blit(muki['(0,-5)'],kk_rct)
 
         bd_rct.move_ip(vx, vy)
         yoko,tate = check_bound(bd_rct)
